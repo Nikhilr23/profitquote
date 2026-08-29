@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ProfitQuote helps cleaning businesses calculate job cost, profit margin, and the minimum price needed to hit a target margin." />
+  <title>ProfitQuote — Cleaning Profit Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="ProfitQuote home">ProfitQuote</a>
+      <a class="nav-cta" href="#calculator">Try the calculator</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero container">
+      <div class="hero-copy">
+        <p class="eyebrow">Built for cleaning businesses</p>
+        <h1>Know what to charge before you send the quote.</h1>
+        <p class="hero-text">Estimate your true job cost, profit, margin, and the minimum quote needed to hit your target margin — in seconds.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#calculator">Calculate my price</a>
+          <span class="trust-note">Free · No login · No API key</span>
+        </div>
+      </div>
+      <div class="hero-card" aria-label="Example profit check">
+        <div class="mini-label">Example profit check</div>
+        <div class="hero-metric-row"><span>Quote</span><strong>$300</strong></div>
+        <div class="hero-metric-row"><span>True cost</span><strong>$237</strong></div>
+        <div class="hero-metric-row"><span>Profit</span><strong>$63</strong></div>
+        <div class="hero-metric-row"><span>Margin</span><strong>21%</strong></div>
+        <div class="status-pill status-warning">Below 35% target</div>
+      </div>
+    </section>
+
+    <section id="calculator" class="calculator-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Profit calculator</p>
+          <h2>Check whether your quote actually makes money.</h2>
+          <p>Enter your own numbers. ProfitQuote does not guess market prices — it calculates from your costs and target margin.</p>
+        </div>
+
+        <div class="calculator-grid">
+          <form id="profit-form" class="panel input-panel">
+            <div class="form-section">
+              <h3>Job details</h3>
+              <div class="field-grid two-col">
+                <label>
+                  Job type
+                  <select id="jobType">
+                    <option>Residential</option>
+                    <option>Commercial</option>
+                  </select>
+                </label>
+                <label>
+                  Number of cleaners
+                  <input id="cleaners" type="number" min="1" step="1" value="2" />
+                </label>
+                <label>
+                  Hours per cleaner
+                  <input id="hours" type="number" min="0" step="0.25" value="4" />
+                </label>
+                <label>
+                  Hourly labor cost
+                  <div class="money-input"><span>$</span><input id="laborRate" type="number" min="0" step="0.01" value="20" /></div>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>Other job costs</h3>
+              <div class="field-grid two-col">
+                <label>
+                  Supplies
+                  <div class="money-input"><span>$</span><input id="supplies" type="number" min="0" step="0.01" value="15" /></div>
+                </label>
+                <label>
+                  Travel
+                  <div class="money-input"><span>$</span><input id="travel" type="number" min="0" step="0.01" value="12" /></div>
+                </label>
+                <label>
+                  Overhead allocation
+                  <div class="money-input"><span>$</span><input id="overhead" type="number" min="0" step="0.01" value="40" /></div>
+                </label>
+                <label>
+                  Other costs
+                  <div class="money-input"><span>$</span><input id="other" type="number" min="0" step="0.01" value="10" /></div>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>Pricing</h3>
+              <div class="field-grid two-col">
+                <label>
+                  Proposed quote
+                  <div class="money-input"><span>$</span><input id="quote" type="number" min="0" step="0.01" value="300" /></div>
+                </label>
+                <label>
+                  Target gross margin
+                  <div class="percent-input"><input id="targetMargin" type="number" min="1" max="95" step="1" value="35" /><span>%</span></div>
+                </label>
+              </div>
+            </div>
+
+            <button class="button button-primary full-width" type="submit">Calculate profit</button>
+          </form>
+
+          <aside class="panel result-panel" aria-live="polite">
+            <div class="result-header">
+              <p class="eyebrow">Profit check</p>
+              <div id="status" class="status-pill status-warning">Below target</div>
+            </div>
+
+            <div class="big-result">
+              <span>Estimated profit</span>
+              <strong id="profitValue">$63.00</strong>
+            </div>
+
+            <div class="result-list">
+              <div><span>Revenue</span><strong id="revenueValue">$300.00</strong></div>
+              <div><span>Labor cost</span><strong id="laborValue">$160.00</strong></div>
+              <div><span>Other costs</span><strong id="otherCostsValue">$77.00</strong></div>
+              <div><span>Total job cost</span><strong id="costValue">$237.00</strong></div>
+              <div><span>Gross margin</span><strong id="marginValue">21.0%</strong></div>
+            </div>
+
+            <div class="target-box">
+              <span>Minimum quote for <strong id="targetLabel">35%</strong> margin</span>
+              <strong id="minimumQuote">$364.62</strong>
+            </div>
+
+            <p id="guidance" class="guidance">Your proposed quote is below your target margin. Consider raising the price or reducing job costs.</p>
+            <p class="fine-print">For planning only. ProfitQuote does not provide accounting, tax, or legal advice.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-section container">
+      <div class="section-heading compact">
+        <p class="eyebrow">How it helps</p>
+        <h2>Simple math that protects your margin.</h2>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-number">01</span>
+          <h3>Use your real costs</h3>
+          <p>Labor, supplies, travel, overhead, and other job expenses all count toward the real cost of a cleaning job.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">02</span>
+          <h3>See your actual margin</h3>
+          <p>ProfitQuote shows profit and gross margin so you can spot jobs that look busy but barely make money.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number">03</span>
+          <h3>Work backward from your target</h3>
+          <p>Set the margin you want and instantly see the minimum quote required to reach it.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <strong>ProfitQuote</strong>
+      <span>Free cleaning profit calculator</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
