@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="ProfitQuote helps cleaning businesses calculate job cost, profit margin, and the minimum price needed to hit a target margin." />
+  <meta name="description" content="ProfitQuote helps cleaning businesses calculate true job cost, profit margin, and the minimum profitable quote needed to hit a target margin." />
   <title>ProfitQuote — Cleaning Profit Calculator</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -20,7 +20,7 @@
       <div class="hero-copy">
         <p class="eyebrow">Built for cleaning businesses</p>
         <h1>Know what to charge before you send the quote.</h1>
-        <p class="hero-text">Estimate your true job cost, profit, margin, and the minimum quote needed to hit your target margin — in seconds.</p>
+        <p class="hero-text">Estimate your true job cost, profit, gross margin, and the minimum profitable quote needed to hit your target margin — in seconds.</p>
         <div class="hero-actions">
           <a class="button button-primary" href="#calculator">Calculate my price</a>
           <span class="trust-note">Free · No login · No API key</span>
@@ -29,9 +29,9 @@
       <div class="hero-card" aria-label="Example profit check">
         <div class="mini-label">Example profit check</div>
         <div class="hero-metric-row"><span>Quote</span><strong>$300</strong></div>
-        <div class="hero-metric-row"><span>True cost</span><strong>$237</strong></div>
+        <div class="hero-metric-row"><span>True job cost</span><strong>$237</strong></div>
         <div class="hero-metric-row"><span>Profit</span><strong>$63</strong></div>
-        <div class="hero-metric-row"><span>Margin</span><strong>21%</strong></div>
+        <div class="hero-metric-row"><span>Gross margin</span><strong>21%</strong></div>
         <div class="status-pill status-warning">Below 35% target</div>
       </div>
     </section>
@@ -41,7 +41,14 @@
         <div class="section-heading">
           <p class="eyebrow">Profit calculator</p>
           <h2>Check whether your quote actually makes money.</h2>
-          <p>Enter your own numbers. ProfitQuote does not guess market prices — it calculates from your costs and target margin.</p>
+          <p>Enter your own numbers. ProfitQuote does not guess market prices — it calculates from your labor, direct job costs, overhead allocation, and target margin.</p>
+        </div>
+
+        <div class="example-actions" aria-label="Example job presets">
+          <span>Try an example:</span>
+          <button type="button" class="button button-secondary" id="residentialExample">Residential</button>
+          <button type="button" class="button button-secondary" id="commercialExample">Commercial</button>
+          <button type="button" class="button button-secondary" id="resetCalculator">Reset</button>
         </div>
 
         <div class="calculator-grid">
@@ -65,10 +72,11 @@
                   <input id="hours" type="number" min="0" step="0.25" value="4" />
                 </label>
                 <label>
-                  Hourly labor cost
+                  True hourly labor cost
                   <div class="money-input"><span>$</span><input id="laborRate" type="number" min="0" step="0.01" value="20" /></div>
                 </label>
               </div>
+              <p class="field-help">Use what one cleaner really costs you per hour, not only the wage, if you already know that number.</p>
             </div>
 
             <div class="form-section">
@@ -125,18 +133,49 @@
               <div><span>Revenue</span><strong id="revenueValue">$300.00</strong></div>
               <div><span>Labor cost</span><strong id="laborValue">$160.00</strong></div>
               <div><span>Other costs</span><strong id="otherCostsValue">$77.00</strong></div>
-              <div><span>Total job cost</span><strong id="costValue">$237.00</strong></div>
+              <div><span>True job cost</span><strong id="costValue">$237.00</strong></div>
               <div><span>Gross margin</span><strong id="marginValue">21.0%</strong></div>
             </div>
 
             <div class="target-box">
-              <span>Minimum quote for <strong id="targetLabel">35%</strong> margin</span>
+              <span>Minimum profitable quote for <strong id="targetLabel">35%</strong> margin</span>
               <strong id="minimumQuote">$364.62</strong>
             </div>
 
             <p id="guidance" class="guidance">Your proposed quote is below your target margin. Consider raising the price or reducing job costs.</p>
-            <p class="fine-print">For planning only. ProfitQuote does not provide accounting, tax, or legal advice.</p>
+            <button type="button" class="button button-secondary full-width" id="copySummary">Copy result summary</button>
+            <p id="copyStatus" class="copy-status" aria-live="polite"></p>
+            <p class="fine-print">For planning only. ProfitQuote does not provide accounting, tax, legal, or financial advice.</p>
           </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="example-section container">
+      <div class="section-heading compact">
+        <p class="eyebrow">Worked example</p>
+        <h2>Why a $300 quote can still miss your target.</h2>
+      </div>
+      <div class="worked-example panel">
+        <div><span>Labor</span><strong>2 cleaners × 4 hours × $20 = $160</strong></div>
+        <div><span>Supplies + travel + overhead + other</span><strong>$77</strong></div>
+        <div><span>True job cost</span><strong>$237</strong></div>
+        <div><span>$300 quote</span><strong>$63 profit · 21% margin</strong></div>
+        <div><span>Minimum profitable quote at 35% margin</span><strong>$364.62</strong></div>
+      </div>
+    </section>
+
+    <section class="education-section">
+      <div class="container education-grid">
+        <div>
+          <p class="eyebrow">Margin vs markup</p>
+          <h2>They are not the same thing.</h2>
+          <p class="hero-text">Gross margin is profit divided by revenue. Markup is profit divided by cost. If your true job cost is $237, adding a 35% markup gives $319.95 — but that is only about a 25.9% gross margin.</p>
+        </div>
+        <div class="formula-card panel">
+          <span>Minimum price for a target gross margin</span>
+          <strong>Price = Cost ÷ (1 − Margin)</strong>
+          <p>$237 ÷ (1 − 0.35) = <strong>$364.62</strong></p>
         </div>
       </div>
     </section>
@@ -150,7 +189,7 @@
         <article class="feature-card">
           <span class="feature-number">01</span>
           <h3>Use your real costs</h3>
-          <p>Labor, supplies, travel, overhead, and other job expenses all count toward the real cost of a cleaning job.</p>
+          <p>Labor, supplies, travel, overhead, and other job expenses all count toward the true cost of a cleaning job.</p>
         </article>
         <article class="feature-card">
           <span class="feature-number">02</span>
@@ -160,7 +199,7 @@
         <article class="feature-card">
           <span class="feature-number">03</span>
           <h3>Work backward from your target</h3>
-          <p>Set the margin you want and instantly see the minimum quote required to reach it.</p>
+          <p>Set the margin you want and instantly see the minimum profitable quote required to reach it.</p>
         </article>
       </div>
     </section>
